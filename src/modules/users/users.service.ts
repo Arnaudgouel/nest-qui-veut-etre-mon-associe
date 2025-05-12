@@ -47,10 +47,16 @@ export class UsersService {
   }
 
   async getUserProfile(userId: string): Promise<User> {
-    return this.usersRepository.findOne({
+    const user = await this.usersRepository.findOne({
       where: { id: userId },
       relations: ['interests'],
     });
+    
+    if (!user) {
+      throw new NotFoundException(`Utilisateur avec l'ID ${userId} non trouvé`);
+    }
+    
+    return user;
   }
 
   async getEntrepreneurs(): Promise<User[]> {
