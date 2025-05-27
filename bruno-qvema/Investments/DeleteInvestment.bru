@@ -1,0 +1,20 @@
+meta {
+  name: DeleteInvestment
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/investments/{{investment.id}}
+  auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de supprimer un investissement.
+  Accessible uniquement à l'investisseur qui a créé l'investissement.
+  Le token JWT doit être celui de l'investisseur qui a créé l'investissement.
+}
+
+auth:bearer {
+  token: {{token}}
+} 

@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Project } from '../../projects/entities/project.entity';
 
-@Entity('investments')
+@Entity()
 export class Investment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -23,5 +23,5 @@ export class Investment {
   amount: number;
 
   @CreateDateColumn()
-  createdAt: Date;
+  date: Date;
 } 

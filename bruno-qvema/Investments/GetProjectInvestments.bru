@@ -1,0 +1,20 @@
+meta {
+  name: GetProjectInvestments
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/investments/project/{{project.id}}
+  auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de récupérer tous les investissements d'un projet spécifique.
+  Accessible uniquement au propriétaire du projet ou à un administrateur.
+  Le token JWT doit être celui du propriétaire du projet ou d'un administrateur.
+}
+
+auth:bearer {
+  token: {{token}}
+} 

@@ -19,6 +19,6 @@ export class Interest {
   @ManyToMany(() => User, user => user.interests)
   users: User[];
 
-  @ManyToMany(() => Project, project => project.categories)
+  @ManyToMany(() => Project, project => project.interests)
   projects: Project[];
 } 
