@@ -1,0 +1,19 @@
+meta {
+  name: GetUserInterests
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/users/interests
+  auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de récupérer les intérêts de l'utilisateur connecté.
+  Accessible uniquement aux utilisateurs authentifiés.
+}
+
+auth:bearer {
+  token: {{token}}
+} 

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserRole } from './entities/user.entity';
@@ -82,8 +82,6 @@ export class UsersService {
   }
 
   async addInterests(userId: string, interestIds: string[]): Promise<User> {
-    // Cette méthode sera implémentée avec la relation ManyToMany
-    // Nous récupérons l'utilisateur avec ses intérêts
     const user = await this.usersRepository.findOne({
       where: { id: userId },
       relations: ['interests'],
@@ -93,8 +91,21 @@ export class UsersService {
       throw new NotFoundException(`Utilisateur avec l'ID ${userId} non trouvé`);
     }
 
-    // Cette partie devra être complétée quand nous aurons le service des intérêts
-    return user;
+    user.interests = interestIds.map(id => ({ id }) as Interest);
+    return this.usersRepository.save(user);
+  }
+
+  async getUserInterests(userId: string): Promise<Interest[]> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['interests'],
+    });
+
+    if (!user) {
+      throw new NotFoundException(`Utilisateur avec l'ID ${userId} non trouvé`);
+    }
+
+    return user.interests;
   }
 
   async getProfile(userId: string): Promise<User> {

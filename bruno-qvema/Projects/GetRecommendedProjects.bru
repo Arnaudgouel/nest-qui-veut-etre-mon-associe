@@ -1,0 +1,21 @@
+meta {
+  name: GetRecommendedProjects
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/projects/recommended
+  auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de récupérer les projets recommandés en fonction des intérêts de l'utilisateur.
+  Accessible uniquement aux utilisateurs authentifiés.
+  Les projets sont triés par date de création (du plus récent au plus ancien).
+  Si l'utilisateur n'a pas d'intérêts, une liste vide est retournée.
+}
+
+auth:bearer {
+  token: {{token}}
+} 

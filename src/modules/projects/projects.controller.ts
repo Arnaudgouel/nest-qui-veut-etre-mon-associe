@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from '../users/entities/user.entity';
+import { InterestsService } from '../interests/interests.service';
 
 interface RequestWithUser extends Request {
   user: { id: string; email: string; role: string };
@@ -14,7 +15,10 @@ interface RequestWithUser extends Request {
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(
+    private readonly projectsService: ProjectsService,
+    private readonly interestsService: InterestsService,
+  ) {}
 
   @Post()
   @UseGuards(RolesGuard)
@@ -26,6 +30,11 @@ export class ProjectsController {
   @Get()
   findAll() {
     return this.projectsService.findAll();
+  }
+
+  @Get('recommended')
+  async getRecommendedProjects(@Request() req: RequestWithUser) {
+    return this.interestsService.recommendProjects(req.user.id);
   }
 
   @Get(':id')

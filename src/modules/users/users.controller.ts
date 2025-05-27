@@ -63,4 +63,17 @@ export class UsersController {
       updateProfileDto.interests
     );
   }
+
+  @Post('interests')
+  async addInterests(
+    @Req() req: RequestWithUser,
+    @Body() body: { interestIds: string[] },
+  ) {
+    return this.usersService.addInterests(req.user.id, body.interestIds);
+  }
+
+  @Get('interests')
+  async getUserInterests(@Req() req: RequestWithUser) {
+    return this.usersService.getUserInterests(req.user.id);
+  }
 }

@@ -1,0 +1,23 @@
+meta {
+  name: AddUserInterests
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/users/interests
+  auth: bearer {{auth.token}}
+  body: json {
+    "interestIds": ["interest-id-1", "interest-id-2", "interest-id-3"]
+  }
+}
+
+docs {
+  Cette route permet d'ajouter des intérêts à l'utilisateur connecté.
+  Accessible uniquement aux utilisateurs authentifiés.
+  L'utilisateur ne peut modifier que ses propres intérêts.
+}
+
+auth:bearer {
+  token: {{token}}
+} 
