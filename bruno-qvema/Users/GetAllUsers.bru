@@ -6,8 +6,12 @@ meta {
 
 get {
   url: http://localhost:3000/users
-  body: none
-  auth: bearer
+  auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route n'est accessible qu'aux administrateurs.
+  Le token JWT doit être celui d'un utilisateur avec le rôle 'admin'.
 }
 
 auth:bearer {

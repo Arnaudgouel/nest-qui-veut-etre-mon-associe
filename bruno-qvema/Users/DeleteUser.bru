@@ -7,4 +7,9 @@ meta {
 delete {
   url: http://localhost:3000/users/{{user.id}}
   auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route n'est accessible qu'aux administrateurs.
+  Le token JWT doit être celui d'un utilisateur avec le rôle 'admin'.
 } 

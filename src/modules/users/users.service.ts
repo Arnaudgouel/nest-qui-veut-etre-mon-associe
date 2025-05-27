@@ -5,6 +5,7 @@ import { User, UserRole } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Interest } from '../interests/entities/interest.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,10 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = this.usersRepository.create(createUserDto);
+    if (user.password) {
+      const salt = await bcrypt.genSalt();
+      user.password = await bcrypt.hash(user.password, salt);
+    }
     return this.usersRepository.save(user);
   }
 
@@ -36,6 +41,10 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     await this.findOne(id); // Vérifie si l'utilisateur existe
+    if (updateUserDto.password) {
+      const salt = await bcrypt.genSalt();
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
+    }
     await this.usersRepository.update(id, updateUserDto);
     return this.findOne(id);
   }
@@ -109,6 +118,12 @@ export class UsersService {
 
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    // Hash password if provided
+    if (updateUserDto.password) {
+      const salt = await bcrypt.genSalt();
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
     }
 
     // Update user info
