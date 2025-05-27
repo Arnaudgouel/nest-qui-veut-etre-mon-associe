@@ -7,4 +7,14 @@ meta {
 delete {
   url: http://localhost:3000/projects/{{project.id}}
   auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de supprimer un projet.
+  Accessible uniquement au propriétaire du projet ou à un administrateur.
+  Le token JWT doit être celui du propriétaire du projet ou d'un administrateur.
+}
+
+auth:bearer {
+  token: {{token}}
 } 

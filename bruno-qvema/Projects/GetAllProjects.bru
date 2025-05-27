@@ -1,10 +1,19 @@
 meta {
   name: GetAllProjects
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
   url: http://localhost:3000/projects
   auth: bearer {{auth.token}}
+}
+
+docs {
+  Cette route permet de récupérer tous les projets.
+  Accessible à tous les utilisateurs authentifiés.
+}
+
+auth:bearer {
+  token: {{token}}
 } 

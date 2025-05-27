@@ -6,15 +6,21 @@ meta {
 
 patch {
   url: http://localhost:3000/projects/{{project.id}}
-  body: json
   auth: bearer {{auth.token}}
+  body: json {
+    "title": "Projet Mis à Jour",
+    "description": "Nouvelle description du projet",
+    "budget": 75000,
+    "category": "Innovation"
+  }
 }
 
-body:json {
-  {
-    "title": "Titre Mis à Jour",
-    "description": "Description mise à jour",
-    "budget": 75000.00,
-    "categories": ["category-id-3"]
-  }
+docs {
+  Cette route permet de mettre à jour un projet existant.
+  Accessible uniquement au propriétaire du projet ou à un administrateur.
+  Le token JWT doit être celui du propriétaire du projet ou d'un administrateur.
+}
+
+auth:bearer {
+  token: {{token}}
 } 
