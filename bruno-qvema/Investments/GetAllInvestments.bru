@@ -1,0 +1,10 @@
+meta {
+  name: GetAllInvestments
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/investments
+  auth: bearer {{auth.token}}
+} 

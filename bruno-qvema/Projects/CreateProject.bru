@@ -1,0 +1,20 @@
+meta {
+  name: CreateProject
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/projects
+  body: json
+  auth: bearer {{auth.token}}
+}
+
+body:json {
+  {
+    "title": "Mon Projet Innovant",
+    "description": "Description détaillée du projet",
+    "budget": 50000.00,
+    "categories": ["category-id-1", "category-id-2"]
+  }
+} 

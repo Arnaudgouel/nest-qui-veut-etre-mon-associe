@@ -1,0 +1,18 @@
+meta {
+  name: CreateInvestment
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/investments
+  body: json
+  auth: bearer {{auth.token}}
+}
+
+body:json {
+  {
+    "projectId": "{{project.id}}",
+    "amount": 10000.00
+  }
+} 

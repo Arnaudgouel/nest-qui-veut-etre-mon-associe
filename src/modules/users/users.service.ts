@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User, UserRole } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Interest } from '../interests/entities/interest.entity';
 
 @Injectable()
 export class UsersService {
@@ -85,5 +86,39 @@ export class UsersService {
 
     // Cette partie devra être complétée quand nous aurons le service des intérêts
     return user;
+  }
+
+  async getProfile(userId: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['interests'],
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    return user;
+  }
+
+  async updateProfile(userId: string, updateUserDto: UpdateUserDto, interestIds?: string[]): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['interests'],
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    // Update user info
+    Object.assign(user, updateUserDto);
+
+    // Update interests if provided
+    if (interestIds && interestIds.length > 0) {
+      user.interests = interestIds.map(id => ({ id }) as Interest);
+    }
+
+    return this.usersRepository.save(user);
   }
 }

@@ -1,0 +1,20 @@
+meta {
+  name: UpdateProject
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/projects/{{project.id}}
+  body: json
+  auth: bearer {{auth.token}}
+}
+
+body:json {
+  {
+    "title": "Titre Mis à Jour",
+    "description": "Description mise à jour",
+    "budget": 75000.00,
+    "categories": ["category-id-3"]
+  }
+} 

@@ -1,0 +1,19 @@
+meta {
+  name: UpdateProfile
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:3000/users/profile
+  body: json
+  auth: bearer {{auth.token}}
+}
+
+body:json {
+  {
+    "firstname": "Updated",
+    "lastname": "Profile",
+    "interests": ["interest-id-1", "interest-id-2"]
+  }
+} 

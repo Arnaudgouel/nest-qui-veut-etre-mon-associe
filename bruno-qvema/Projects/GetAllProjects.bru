@@ -1,0 +1,10 @@
+meta {
+  name: GetAllProjects
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/projects
+  auth: bearer {{auth.token}}
+} 

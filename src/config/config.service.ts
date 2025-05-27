@@ -48,7 +48,7 @@ export class ConfigService {
   }
 
   get dbPort(): number {
-    return parseInt(this.get('DB_PORT') || '3306', 10);
+    return parseInt(this.get('DB_PORT') || '3307', 10);
   }
 
   get dbUser(): string {
@@ -56,7 +56,7 @@ export class ConfigService {
   }
 
   get dbPassword(): string {
-    return this.get('DB_PASSWORD') || '';
+    return this.get('DB_PASSWORD') || 'password';
   }
 
   get dbName(): string {

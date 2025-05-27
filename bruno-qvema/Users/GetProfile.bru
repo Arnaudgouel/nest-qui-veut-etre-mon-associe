@@ -1,0 +1,10 @@
+meta {
+  name: GetProfile
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:3000/users/profile
+  auth: bearer {{auth.token}}
+} 
