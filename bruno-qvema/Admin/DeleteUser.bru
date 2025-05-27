@@ -1,0 +1,21 @@
+meta {
+  name: Delete User
+  type: http
+  seq: 2
+}
+
+docs {
+  Route accessible uniquement aux administrateurs.
+  Nécessite un token JWT d'un utilisateur avec le rôle 'admin'.
+  Supprime un utilisateur par son ID.
+}
+
+auth: bearer {{auth.token}}
+
+delete: {{base_url}}/admin/users/{{env.user_id}}
+
+tests {
+  test("should return 200 OK", function() {
+    expect(response.status).to.equal(200);
+  });
+} 

@@ -1,0 +1,24 @@
+meta {
+  name: Get All Users
+  type: http
+  seq: 1
+}
+
+docs {
+  Route accessible uniquement aux administrateurs.
+  Nécessite un token JWT d'un utilisateur avec le rôle 'admin'.
+}
+
+auth: bearer {{auth.token}}
+
+get: {{base_url}}/admin/users
+
+tests {
+  test("should return 200 OK", function() {
+    expect(response.status).to.equal(200);
+  });
+
+  test("should return an array of users", function() {
+    expect(response.body).to.be.an("array");
+  });
+} 
