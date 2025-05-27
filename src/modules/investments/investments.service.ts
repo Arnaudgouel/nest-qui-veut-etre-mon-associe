@@ -12,6 +12,12 @@ export class InvestmentsService {
     private investmentsRepository: Repository<Investment>,
   ) {}
 
+  async findAll(): Promise<Investment[]> {
+    return this.investmentsRepository.find({
+      relations: ['project', 'investor'],
+    });
+  }
+
   async create(createInvestmentDto: CreateInvestmentDto, investorId: string): Promise<Investment> {
     const investment = this.investmentsRepository.create({
       ...createInvestmentDto,
